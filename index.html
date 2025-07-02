@@ -3,1128 +3,452 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DR Masking - Documentation Interactive</title>
+    <title>Questionnaire DR Masking - Cadrage Technique</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .card-hover { transition: all 0.3s ease; }
-        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
-        .syntax-highlight { background: #f8f9fa; border-left: 4px solid #007bff; }
-        .interactive-element { cursor: pointer; transition: all 0.2s ease; }
-        .interactive-element:hover { background-color: #e3f2fd; }
-        .section-divider { height: 2px; background: linear-gradient(90deg, transparent, #667eea, transparent); }
         @media print {
-            body { font-size: 12px; }
+            body { margin: 0; }
             .no-print { display: none; }
-            .card-hover:hover { transform: none; }
+        }
+        .document-style {
+            max-width: 8.5in;
+            margin: 0 auto;
+            background: white;
+            font-family: 'Times New Roman', serif;
+            line-height: 1.6;
+        }
+        input[type="text"], textarea, select {
+            border: 1px solid #ccc;
+            padding: 8px;
+            width: 100%;
+            font-size: 12px;
+        }
+        .section-header {
+            background-color: #2563eb;
+            color: white;
+            padding: 10px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .question-row {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .question-number {
+            width: 40px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        .question-text {
+            flex: 1;
+            padding-right: 15px;
+        }
+        .answer-field {
+            width: 300px;
+        }
+        .required {
+            color: #dc2626;
+        }
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
     </style>
 </head>
-<body class="bg-gray-50">
-    <!-- Header -->
-    <header class="gradient-bg text-white py-8">
-        <div class="container mx-auto px-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h1 class="text-4xl font-bold mb-2">
-                        <i class="fas fa-shield-alt mr-3"></i>DR Masking v1
-                    </h1>
-                    <p class="text-xl opacity-90">Framework unifié d'anonymisation de données</p>
-                    <p class="text-lg opacity-75 mt-2">Macro • Micro • Metric • Policy</p>
-                </div>
-                <div class="text-right">
-                    <div class="bg-white bg-opacity-20 rounded-lg p-4">
-                        <p class="text-sm opacity-90">Conformité</p>
-                        <p class="text-2xl font-bold">RGPD</p>
+<body class="bg-gray-100 p-4">
+    <div class="document-style bg-white shadow-lg p-8">
+        
+        <!-- En-tête -->
+        <div class="text-center mb-8 border-b-2 border-blue-600 pb-6">
+            <h1 class="text-3xl font-bold text-blue-800 mb-2">
+                <i class="fas fa-shield-alt mr-3"></i>
+                QUESTIONNAIRE DR MASKING
+            </h1>
+            <h2 class="text-xl text-gray-600 mb-4">Cadrage Technique - Anonymisation de Données</h2>
+            <div class="text-sm text-gray-500">
+                <p><strong>Version:</strong> 1.0 | <strong>Date:</strong> <span id="current-date"></span></p>
+                <p><strong>Projet:</strong> Implémentation Framework DR Masking</p>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="mb-8 bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-lg font-bold text-blue-800 mb-4">
+                <i class="fas fa-info-circle mr-2"></i>Instructions de Remplissage
+            </h3>
+            <div class="text-sm space-y-2">
+                <p><strong>Objectif :</strong> Recueillir les informations nécessaires pour paramétrer optimalement votre solution d'anonymisation DR Masking</p>
+                <ul class="list-disc list-inside space-y-1 mt-4">
+                    <li>Remplissez toutes les questions marquées <span class="required">*</span> (obligatoires)</li>
+                    <li>Les questions optionnelles peuvent améliorer la précision du paramétrage</li>
+                    <li>Soyez aussi précis que possible dans vos réponses</li>
+                    <li>N'hésitez pas à contacter l'équipe projet pour toute clarification</li>
+                </ul>
+                <p class="mt-4"><strong>Temps estimé :</strong> 15-20 minutes</p>
+            </div>
+        </div>
+
+        <!-- Section A: Contexte Organisationnel -->
+        <div class="section-header">
+            <i class="fas fa-building mr-2"></i>
+            SECTION A - CONTEXTE ORGANISATIONNEL
+        </div>
+        
+        <div class="question-row">
+            <div class="question-number">A1<span class="required">*</span></div>
+            <div class="question-text">Secteur d'activité principal</div>
+            <div class="answer-field">
+                <select name="secteur">
+                    <option value="">Sélectionnez...</option>
+                    <option value="sante">Santé</option>
+                    <option value="finance">Finance</option>
+                    <option value="public">Secteur Public</option>
+                    <option value="education">Éducation</option>
+                    <option value="telecom">Télécommunications</option>
+                    <option value="autre">Autre</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">A2<span class="required">*</span></div>
+            <div class="question-text">Finalité principale de l'anonymisation</div>
+            <div class="answer-field">
+                <select name="finalite">
+                    <option value="">Sélectionnez...</option>
+                    <option value="analytics">Analytics / Business Intelligence</option>
+                    <option value="ml">Machine Learning / IA</option>
+                    <option value="reporting">Reporting interne</option>
+                    <option value="partage">Partage externe / partenaires</option>
+                    <option value="test">Environnements de test</option>
+                    <option value="recherche">Recherche et développement</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">A3<span class="required">*</span></div>
+            <div class="question-text">Contraintes réglementaires applicables</div>
+            <div class="answer-field">
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="rgpd" name="reglementaire[]" value="rgpd">
+                        <label for="rgpd">RGPD</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="hds" name="reglementaire[]" value="hds">
+                        <label for="hds">HDS</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="cnil" name="reglementaire[]" value="cnil">
+                        <label for="cnil">CNIL</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="sectorielles" name="reglementaire[]" value="sectorielles">
+                        <label for="sectorielles">Sectorielles</label>
                     </div>
                 </div>
             </div>
         </div>
-    </header>
 
-    <!-- Navigation rapide -->
-    <nav class="bg-white shadow-md sticky top-0 z-50 no-print">
-        <div class="container mx-auto px-6">
-            <div class="flex space-x-8 py-4 text-sm">
-                <a href="#vision" class="text-blue-600 hover:text-blue-800 font-medium">Vision</a>
-                <a href="#architecture" class="text-blue-600 hover:text-blue-800 font-medium">Architecture</a>
-                <a href="#cicd" class="text-blue-600 hover:text-blue-800 font-medium">CI/CD</a>
-                <a href="#prompt-generator" class="text-blue-600 hover:text-blue-800 font-medium">Prompt LLM</a>
-                <a href="#plugins" class="text-blue-600 hover:text-blue-800 font-medium">Plugins</a>
-                <a href="#calculator" class="text-blue-600 hover:text-blue-800 font-medium">Calculateur</a>
-                <a href="#exemples" class="text-blue-600 hover:text-blue-800 font-medium">Exemples</a>
-                <a href="#devops" class="text-blue-600 hover:text-blue-800 font-medium">DevOps</a>
+        <div class="question-row">
+            <div class="question-number">A4<span class="required">*</span></div>
+            <div class="question-text">Environnement technique</div>
+            <div class="answer-field">
+                <select name="environnement">
+                    <option value="">Sélectionnez...</option>
+                    <option value="onpremise">On-premise</option>
+                    <option value="cloud">Cloud public</option>
+                    <option value="hybride">Hybride</option>
+                    <option value="private-cloud">Cloud privé</option>
+                </select>
             </div>
         </div>
-    </nav>
 
-    <div class="container mx-auto px-6 py-8">
-        <!-- Section Vision -->
-        <section id="vision" class="mb-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8 flex items-center">
-                <i class="fas fa-eye text-blue-600 mr-3"></i>Vision du Framework
-            </h2>
-            
-            <div class="bg-white rounded-lg shadow-lg p-6 mb-8 card-hover">
-                <h3 class="text-xl font-semibold mb-4 text-blue-700">
-                    <i class="fas fa-target mr-2"></i>Objectif Principal
-                </h3>
-                <p class="text-gray-600 leading-relaxed">
-                    DR Masking transforme toute table de micro-données en dataset anonyme, masqué et réutilisable avec une approche 4-en-1.
+        <!-- Section B: Caractérisation des Données -->
+        <div class="section-header">
+            <i class="fas fa-database mr-2"></i>
+            SECTION B - CARACTÉRISATION DES DONNÉES
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">B5<span class="required">*</span></div>
+            <div class="question-text">Volume approximatif des données</div>
+            <div class="answer-field">
+                <select name="volume">
+                    <option value="">Sélectionnez...</option>
+                    <option value="<100k">< 100K lignes</option>
+                    <option value="100k-1m">100K - 1M lignes</option>
+                    <option value="1m-10m">1M - 10M lignes</option>
+                    <option value=">10m">> 10M lignes</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">B6<span class="required">*</span></div>
+            <div class="question-text">Fréquence de traitement</div>
+            <div class="answer-field">
+                <select name="frequence">
+                    <option value="">Sélectionnez...</option>
+                    <option value="ponctuel">Ponctuel</option>
+                    <option value="mensuel">Mensuel</option>
+                    <option value="hebdomadaire">Hebdomadaire</option>
+                    <option value="quotidien">Quotidien</option>
+                    <option value="temps-reel">Temps réel</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">B7<span class="required">*</span></div>
+            <div class="question-text">Types d'identifiants présents dans vos données</div>
+            <div class="answer-field">
+                <textarea name="identifiants" rows="4" placeholder="Exemples: NIR, emails, noms/prénoms, adresses, téléphones, codes postaux, dates de naissance, numéros de comptes, etc."></textarea>
+            </div>
+        </div>
+
+        <!-- Section C: Exigences de Qualité -->
+        <div class="section-header">
+            <i class="fas fa-chart-line mr-2"></i>
+            SECTION C - EXIGENCES DE QUALITÉ
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">C8<span class="required">*</span></div>
+            <div class="question-text">Perte d'information acceptable (%)</div>
+            <div class="answer-field">
+                <select name="perte-info">
+                    <option value="">Sélectionnez...</option>
+                    <option value="<10">< 10%</option>
+                    <option value="10-15">10% - 15%</option>
+                    <option value="15-20">15% - 20%</option>
+                    <option value=">20">> 20%</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">C9<span class="required">*</span></div>
+            <div class="question-text">Risque de réidentification toléré (%)</div>
+            <div class="answer-field">
+                <select name="risque-reid">
+                    <option value="">Sélectionnez...</option>
+                    <option value="<1">< 1%</option>
+                    <option value="1-3">1% - 3%</option>
+                    <option value="3-5">3% - 5%</option>
+                    <option value=">5">> 5%</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">C10</div>
+            <div class="question-text">Contraintes de format à préserver</div>
+            <div class="answer-field">
+                <textarea name="contraintes-format" rows="3" placeholder="Exemples: Format NIR, format IBAN, structure codes postaux, etc."></textarea>
+            </div>
+        </div>
+
+        <!-- Section D: Infrastructure et Sécurité -->
+        <div class="section-header">
+            <i class="fas fa-shield-alt mr-2"></i>
+            SECTION D - INFRASTRUCTURE ET SÉCURITÉ
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">D11<span class="required">*</span></div>
+            <div class="question-text">Gestionnaire de clés disponible</div>
+            <div class="answer-field">
+                <select name="gestionnaire-cles">
+                    <option value="">Sélectionnez...</option>
+                    <option value="hashicorp-vault">HashiCorp Vault</option>
+                    <option value="azure-keyvault">Azure Key Vault</option>
+                    <option value="aws-kms">AWS KMS</option>
+                    <option value="google-kms">Google Cloud KMS</option>
+                    <option value="autre">Autre</option>
+                    <option value="aucun">Aucun</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">D12</div>
+            <div class="question-text">Environnement d'exécution préféré</div>
+            <div class="answer-field">
+                <select name="execution">
+                    <option value="">Sélectionnez...</option>
+                    <option value="docker">Docker</option>
+                    <option value="kubernetes">Kubernetes</option>
+                    <option value="vm">Machines virtuelles</option>
+                    <option value="serverless">Serverless</option>
+                    <option value="bare-metal">Serveurs physiques</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">D13</div>
+            <div class="question-text">Plateforme CI/CD existante</div>
+            <div class="answer-field">
+                <select name="cicd">
+                    <option value="">Sélectionnez...</option>
+                    <option value="jenkins">Jenkins</option>
+                    <option value="gitlab">GitLab CI</option>
+                    <option value="azure-devops">Azure DevOps</option>
+                    <option value="github-actions">GitHub Actions</option>
+                    <option value="autre">Autre</option>
+                    <option value="aucun">Aucune</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Section E: Cas d'Usage Spécifiques -->
+        <div class="section-header">
+            <i class="fas fa-cogs mr-2"></i>
+            SECTION E - CAS D'USAGE SPÉCIFIQUES
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">E14</div>
+            <div class="question-text">Règles métier particulières</div>
+            <div class="answer-field">
+                <textarea name="regles-metier" rows="4" placeholder="Exemples: Les mineurs doivent avoir un masquage renforcé, certains diagnostics nécessitent un traitement spécial, etc."></textarea>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">E15</div>
+            <div class="question-text">Valeurs à ne jamais masquer</div>
+            <div class="answer-field">
+                <textarea name="valeurs-preservees" rows="4" placeholder="Exemples: Codes de référence système, identifiants techniques, valeurs nulles spécifiques, etc."></textarea>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">E16</div>
+            <div class="question-text">Besoins de traçabilité spécifiques</div>
+            <div class="answer-field">
+                <textarea name="tracabilite" rows="4" placeholder="Exemples: Audit trail complet, réversibilité partielle, logging détaillé, etc."></textarea>
+            </div>
+        </div>
+
+        <!-- Section F: Contraintes Opérationnelles -->
+        <div class="section-header">
+            <i class="fas fa-calendar-alt mr-2"></i>
+            SECTION F - CONTRAINTES OPÉRATIONNELLES
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">F17<span class="required">*</span></div>
+            <div class="question-text">Timeline du projet</div>
+            <div class="answer-field">
+                <select name="timeline">
+                    <option value="">Sélectionnez...</option>
+                    <option value="<1mois">< 1 mois</option>
+                    <option value="1-3mois">1 - 3 mois</option>
+                    <option value="3-6mois">3 - 6 mois</option>
+                    <option value=">6mois">> 6 mois</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">F18<span class="required">*</span></div>
+            <div class="question-text">Équipes impliquées dans le projet</div>
+            <div class="answer-field">
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="it" name="equipes[]" value="it">
+                        <label for="it">IT / DSI</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="dpo" name="equipes[]" value="dpo">
+                        <label for="dpo">DPO / Juridique</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="metier" name="equipes[]" value="metier">
+                        <label for="metier">Métier</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="securite" name="equipes[]" value="securite">
+                        <label for="securite">Sécurité / RSSI</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">F19</div>
+            <div class="question-text">Budget disponible</div>
+            <div class="answer-field">
+                <select name="budget">
+                    <option value="">Sélectionnez...</option>
+                    <option value="limite">Limité</option>
+                    <option value="moyen">Moyen</option>
+                    <option value="confortable">Confortable</option>
+                    <option value="non-defini">Non défini</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Glossaire -->
+        <div class="mt-8 bg-gray-50 p-6 rounded-lg">
+            <h3 class="text-lg font-bold text-gray-800 mb-4">
+                <i class="fas fa-book mr-2"></i>Glossaire
+            </h3>
+            <div class="text-sm space-y-3">
+                <div><strong>k-anonymat :</strong> Technique garantissant qu'au moins k individus partagent les mêmes quasi-identifiants</div>
+                <div><strong>Differential Privacy (ε-DP) :</strong> Méthode ajoutant du bruit statistique pour protéger la vie privée</div>
+                <div><strong>Re-identification :</strong> Processus permettant d'identifier une personne à partir de données anonymisées</div>
+                <div><strong>Quasi-identifiants :</strong> Combinaison d'attributs pouvant permettre l'identification indirecte</div>
+                <div><strong>HDS :</strong> Hébergeur de Données de Santé (certification française)</div>
+                <div><strong>Vault/KMS :</strong> Systèmes de gestion sécurisée des clés de chiffrement</div>
+            </div>
+        </div>
+
+        <!-- Informations de contact -->
+        <div class="mt-8 border-t-2 border-blue-600 pt-6">
+            <h3 class="text-lg font-bold text-blue-800 mb-4">
+                <i class="fas fa-phone mr-2"></i>Contact Projet
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div>
+                    <strong>Chef de Projet :</strong><br>
+                    Nom : ________________________<br>
+                    Email : _______________________<br>
+                    Téléphone : ___________________
+                </div>
+                <div>
+                    <strong>Expert Technique :</strong><br>
+                    Nom : ________________________<br>
+                    Email : _______________________<br>
+                    Téléphone : ___________________
+                </div>
+            </div>
+            <div class="mt-4 p-4 bg-yellow-50 rounded border-l-4 border-yellow-400">
+                <p class="text-sm text-yellow-800">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    <strong>Important :</strong> Merci de retourner ce questionnaire complété dans un délai de 7 jours ouvrés. 
+                    Une réunion de validation sera programmée suite à la réception de vos réponses.
                 </p>
             </div>
+        </div>
 
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg p-6 text-center card-hover">
-                    <i class="fas fa-chart-line text-3xl mb-3"></i>
-                    <h4 class="font-semibold mb-2">Macro-anonymisation</h4>
-                    <p class="text-sm opacity-90">k-anonymat, ε-DP et paramètres</p>
-                </div>
-                
-                <div class="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-lg p-6 text-center card-hover">
-                    <i class="fas fa-cogs text-3xl mb-3"></i>
-                    <h4 class="font-semibold mb-2">Micro-masquage</h4>
-                    <p class="text-sm opacity-90">Règles champ-par-champ</p>
-                </div>
-                
-                <div class="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-lg p-6 text-center card-hover">
-                    <i class="fas fa-chart-pie text-3xl mb-3"></i>
-                    <h4 class="font-semibold mb-2">Metric & Policy</h4>
-                    <p class="text-sm opacity-90">Objectifs mesurables</p>
-                </div>
-                
-                <div class="bg-gradient-to-br from-red-500 to-red-600 text-white rounded-lg p-6 text-center card-hover">
-                    <i class="fas fa-cube text-3xl mb-3"></i>
-                    <h4 class="font-semibold mb-2">Bundle</h4>
-                    <p class="text-sm opacity-90">XML/YAML/JSON prêts</p>
-                </div>
-            </div>
-        </section>
-
-        <div class="section-divider mb-16"></div>
-
-        <!-- Architecture -->
-        <section id="architecture" class="mb-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8 flex items-center">
-                <i class="fas fa-sitemap text-blue-600 mr-3"></i>Architecture Globale
-            </h2>
-
-            <div class="bg-white rounded-lg shadow-lg p-8">
-                <div class="text-center mb-8">
-                    <div class="inline-flex items-center space-x-4 bg-gray-100 rounded-lg p-6">
-                        <div class="bg-blue-500 text-white px-4 py-2 rounded font-semibold">API / CLI</div>
-                        <i class="fas fa-arrow-right text-2xl text-gray-400"></i>
-                        <div class="bg-green-500 text-white px-4 py-2 rounded font-semibold">RULE ENGINE (YAML)</div>
-                        <i class="fas fa-arrow-right text-2xl text-gray-400"></i>
-                        <div class="bg-purple-500 text-white px-4 py-2 rounded font-semibold">Plugins</div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-                    <div class="bg-gradient-to-br from-red-400 to-red-500 text-white rounded-lg p-4 text-center card-hover">
-                        <i class="fas fa-search text-2xl mb-2"></i>
-                        <h4 class="font-semibold text-sm">FormatPreserver-Regex</h4>
-                    </div>
-                    <div class="bg-gradient-to-br from-indigo-400 to-indigo-500 text-white rounded-lg p-4 text-center card-hover">
-                        <i class="fas fa-lock text-2xl mb-2"></i>
-                        <h4 class="font-semibold text-sm">Crypto-AES256</h4>
-                    </div>
-                    <div class="bg-gradient-to-br from-yellow-400 to-yellow-500 text-white rounded-lg p-4 text-center card-hover">
-                        <i class="fas fa-user-secret text-2xl mb-2"></i>
-                        <h4 class="font-semibold text-sm">Faker-Provider</h4>
-                    </div>
-                    <div class="bg-gradient-to-br from-pink-400 to-pink-500 text-white rounded-lg p-4 text-center card-hover">
-                        <i class="fas fa-table text-2xl mb-2"></i>
-                        <h4 class="font-semibold text-sm">LookupRef</h4>
-                    </div>
-                    <div class="bg-gradient-to-br from-gray-600 to-gray-700 text-white rounded-lg p-4 text-center card-hover">
-                        <i class="fas fa-code text-2xl mb-2"></i>
-                        <h4 class="font-semibold text-sm">CalcFunction</h4>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="section-divider mb-16"></div>
-
-        <!-- CI/CD Pipeline -->
-        <section id="cicd" class="mb-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8 flex items-center">
-                <i class="fas fa-code-branch text-blue-600 mr-3"></i>Chaîne CI/CD Interactive
-            </h2>
-
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Phase</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Action</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Livrable</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Pilote</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            <tr class="interactive-element hover:bg-gray-50">
-                                <td class="px-6 py-4 font-medium text-blue-600">P0 Kick-off</td>
-                                <td class="px-6 py-4 text-gray-900">Périmètre & RACI</td>
-                                <td class="px-6 py-4 text-gray-600">Charte Data-Shield</td>
-                                <td class="px-6 py-4 text-gray-600">PM + DPO</td>
-                                <td class="px-6 py-4"><span class="px-2 py-1 text-xs font-semibold bg-green-100 text-green-800 rounded-full">Prêt</span></td>
-                            </tr>
-                            <tr class="interactive-element hover:bg-gray-50">
-                                <td class="px-6 py-4 font-medium text-blue-600">P1 Discovery</td>
-                                <td class="px-6 py-4 text-gray-900">Scan + Systnaps map</td>
-                                <td class="px-6 py-4 text-gray-600">dictionnaires, modèles...</td>
-                                <td class="px-6 py-4 text-gray-600">Ingé Data</td>
-                                <td class="px-6 py-4"><span class="px-2 py-1 text-xs font-semibold bg-yellow-100 text-yellow-800 rounded-full">En cours</span></td>
-                            </tr>
-                            <tr class="interactive-element hover:bg-gray-50">
-                                <td class="px-6 py-4 font-medium text-blue-600">P2 Prompt</td>
-                                <td class="px-6 py-4 text-gray-900">Saisir prompt DR Masking-LLM</td>
-                                <td class="px-6 py-4 text-gray-600">DR-Masking_mp_reco.json</td>
-                                <td class="px-6 py-4 text-gray-600">Privacy Lead</td>
-                                <td class="px-6 py-4"><span class="px-2 py-1 text-xs font-semibold bg-gray-100 text-gray-800 rounded-full">À faire</span></td>
-                            </tr>
-                            <tr class="interactive-element hover:bg-gray-50">
-                                <td class="px-6 py-4 font-medium text-blue-600">P3 Build</td>
-                                <td class="px-6 py-4 text-gray-900">generate_config.py</td>
-                                <td class="px-6 py-4 text-gray-600">config.xml, plugins/*.yaml</td>
-                                <td class="px-6 py-4 text-gray-600">DevOps</td>
-                                <td class="px-6 py-4"><span class="px-2 py-1 text-xs font-semibold bg-gray-100 text-gray-800 rounded-full">À faire</span></td>
-                            </tr>
-                            <tr class="interactive-element hover:bg-gray-50">
-                                <td class="px-6 py-4 font-medium text-blue-600">P4 Dry-run</td>
-                                <td class="px-6 py-4 text-gray-900">Masquage + Bot Re-ID</td>
-                                <td class="px-6 py-4 text-gray-600">robustness_report.pdf</td>
-                                <td class="px-6 py-4 text-gray-600">Red-team</td>
-                                <td class="px-6 py-4"><span class="px-2 py-1 text-xs font-semibold bg-gray-100 text-gray-800 rounded-full">À faire</span></td>
-                            </tr>
-                            <tr class="interactive-element hover:bg-gray-50">
-                                <td class="px-6 py-4 font-medium text-blue-600">P5 Adjust</td>
-                                <td class="px-6 py-4 text-gray-900">itérer si ReID > objectif</td>
-                                <td class="px-6 py-4 text-gray-600">robustness_OK.pdf</td>
-                                <td class="px-6 py-4 text-gray-600">Privacy Lead</td>
-                                <td class="px-6 py-4"><span class="px-2 py-1 text-xs font-semibold bg-gray-100 text-gray-800 rounded-full">À faire</span></td>
-                            </tr>
-                            <tr class="interactive-element hover:bg-gray-50">
-                                <td class="px-6 py-4 font-medium text-blue-600">P6 Prod</td>
-                                <td class="px-6 py-4 text-gray-900">Merge → CI mask_on_refresh</td>
-                                <td class="px-6 py-4 text-gray-600">Tag Git + hash</td>
-                                <td class="px-6 py-4 text-gray-600">DevOps</td>
-                                <td class="px-6 py-4"><span class="px-2 py-1 text-xs font-semibold bg-gray-100 text-gray-800 rounded-full">À faire</span></td>
-                            </tr>
-                            <tr class="interactive-element hover:bg-gray-50">
-                                <td class="px-6 py-4 font-medium text-blue-600">P7 Monitoring</td>
-                                <td class="px-6 py-4 text-gray-900">Dashboard K-score + Bot RegTech</td>
-                                <td class="px-6 py-4 text-gray-600">Kibana</td>
-                                <td class="px-6 py-4 text-gray-600">RSSI</td>
-                                <td class="px-6 py-4"><span class="px-2 py-1 text-xs font-semibold bg-gray-100 text-gray-800 rounded-full">À faire</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <div class="section-divider mb-16"></div>
-
-        <!-- Générateur de Prompt LLM -->
-        <section id="prompt-generator" class="mb-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8 flex items-center">
-                <i class="fas fa-robot text-blue-600 mr-3"></i>Générateur de Prompt LLM
-            </h2>
-
-            <div class="bg-white rounded-lg shadow-lg p-8">
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="text-xl font-semibold mb-4 text-blue-700">Configuration du Projet</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Organisation</label>
-                                <input type="text" id="organisation" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="Ex: Hôpital Saint-Martin">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Finalité</label>
-                                <input type="text" id="finalite" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="Ex: Publication open-data anonymisé">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Contraintes</label>
-                                <input type="text" id="contraintes" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="Ex: RGPD art.32 & 89">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Volume/Format</label>
-                                <input type="text" id="volume" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="Ex: 250 000 lignes, 4 Go, PostgreSQL">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="text-xl font-semibold mb-4 text-green-700">Paramètres d'Anonymisation</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">k-anonymat minimum</label>
-                                <input type="number" id="k_anonymat" class="w-full p-3 border border-gray-300 rounded-lg" value="5" min="2" max="20">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Perte info max (%)</label>
-                                <input type="number" id="perte_info" class="w-full p-3 border border-gray-300 rounded-lg" value="15" min="1" max="50">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Key Vault</label>
-                                <select id="key_vault" class="w-full p-3 border border-gray-300 rounded-lg">
-                                    <option value="HashiCorp">HashiCorp Vault</option>
-                                    <option value="Azure">Azure Key Vault</option>
-                                    <option value="AWS">AWS KMS</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-8">
-                    <h3 class="text-xl font-semibold mb-4 text-purple-700">Types de Champs</h3>
-                    <div class="grid md:grid-cols-4 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Identifiants directs (ID)</label>
-                            <textarea id="id_fields" class="w-full p-3 border border-gray-300 rounded-lg h-24" placeholder="patient_id, nom, prénom, email"></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Quasi-identifiants (QI)</label>
-                            <textarea id="qi_fields" class="w-full p-3 border border-gray-300 rounded-lg h-24" placeholder="age, code_postal, niveau_etude"></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Attributs sensibles (AS)</label>
-                            <textarea id="as_fields" class="w-full p-3 border border-gray-300 rounded-lg h-24" placeholder="diagnostic, date_diagnostic"></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Non sensibles (NS)</label>
-                            <textarea id="ns_fields" class="w-full p-3 border border-gray-300 rounded-lg h-24" placeholder="date_admission, type_chambre"></textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-8 text-center">
-                    <button onclick="generatePrompt()" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold no-print">
-                        <i class="fas fa-magic mr-2"></i>Générer le Prompt LLM
-                    </button>
-                </div>
-
-                <div id="generated-prompt" class="mt-8 hidden">
-                    <h3 class="text-xl font-semibold mb-4 text-green-700">Prompt Généré</h3>
-                    <div class="syntax-highlight p-6 rounded-lg">
-                        <pre id="prompt-content" class="text-sm overflow-x-auto"></pre>
-                    </div>
-                    <div class="mt-4 text-right">
-                        <button onclick="copyPrompt()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded no-print">
-                            <i class="fas fa-copy mr-2"></i>Copier
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="section-divider mb-16"></div>
-
-        <!-- Plugins et Concepts -->
-        <section id="plugins" class="mb-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8 flex items-center">
-                <i class="fas fa-puzzle-piece text-blue-600 mr-3"></i>Plugins & Concepts
-            </h2>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white rounded-lg shadow-lg p-6 card-hover interactive-element" onclick="showPluginDetails('LookupRef')">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-pink-100 text-pink-600 p-3 rounded-lg mr-4">
-                            <i class="fas fa-table text-xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold">LookupRef</h3>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-4">Remplacer via table référentielle (ex : CP valide)</p>
-                    <div class="text-xs bg-gray-100 p-2 rounded">
-                        <code>plugin: LookupRef</code>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-lg shadow-lg p-6 card-hover interactive-element" onclick="showPluginDetails('ExceptionList')">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-yellow-100 text-yellow-600 p-3 rounded-lg mr-4">
-                            <i class="fas fa-exclamation-triangle text-xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold">ExceptionList</h3>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-4">Valeurs à laisser intactes ou traiter différemment</p>
-                    <div class="text-xs bg-gray-100 p-2 rounded">
-                        <code>exceptions:</code>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-lg shadow-lg p-6 card-hover interactive-element" onclick="showPluginDetails('DefaultValue')">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-blue-100 text-blue-600 p-3 rounded-lg mr-4">
-                            <i class="fas fa-cog text-xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold">DefaultValue</h3>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-4">Valeur fallback si lookup KO</p>
-                    <div class="text-xs bg-gray-100 p-2 rounded">
-                        <code>default:</code>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-lg shadow-lg p-6 card-hover interactive-element" onclick="showPluginDetails('CalcFunction')">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-teal-100 text-teal-600 p-3 rounded-lg mr-4">
-                            <i class="fas fa-code text-xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold">CalcFunction</h3>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-4">Appel fonction Python pour logique métier</p>
-                    <div class="text-xs bg-gray-100 p-2 rounded">
-                        <code>plugin: CalcFunction + function:</code>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-lg shadow-lg p-6 card-hover interactive-element" onclick="showPluginDetails('Crypto')">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-indigo-100 text-indigo-600 p-3 rounded-lg mr-4">
-                            <i class="fas fa-lock text-xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold">Crypto-AES256</h3>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-4">Chiffrement sécurisé avec Vault/KMS</p>
-                    <div class="text-xs bg-gray-100 p-2 rounded">
-                        <code>plugin: Crypto-AES256</code>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-lg shadow-lg p-6 card-hover interactive-element" onclick="showPluginDetails('Faker')">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-green-100 text-green-600 p-3 rounded-lg mr-4">
-                            <i class="fas fa-user-secret text-xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold">Faker-Provider</h3>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-4">Génération de données factices réalistes</p>
-                    <div class="text-xs bg-gray-100 p-2 rounded">
-                        <code>plugin: Faker</code>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal pour détails des plugins -->
-            <div id="plugin-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden z-50 no-print">
-                <div class="flex items-center justify-center h-full">
-                    <div class="bg-white rounded-lg p-8 max-w-2xl w-full mx-4 max-h-96 overflow-y-auto">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 id="plugin-modal-title" class="text-2xl font-bold"></h3>
-                            <button onclick="closePluginModal()" class="text-gray-400 hover:text-gray-600">
-                                <i class="fas fa-times text-xl"></i>
-                            </button>
-                        </div>
-                        <div id="plugin-modal-content"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="section-divider mb-16"></div>
-
-        <!-- Calculateur K-Anonymat -->
-        <section id="calculator" class="mb-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8 flex items-center">
-                <i class="fas fa-calculator text-blue-600 mr-3"></i>Calculateur K-Anonymat
-            </h2>
-
-            <div class="bg-white rounded-lg shadow-lg p-8">
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div>
-                        <h3 class="text-xl font-semibold mb-4 text-blue-700">Paramètres d'Entrée</h3>
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Nombre total d'enregistrements</label>
-                                <input type="number" id="total_records" class="w-full p-3 border border-gray-300 rounded-lg" value="250000" min="1">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Nombre de quasi-identifiants</label>
-                                <input type="number" id="quasi_identifiers" class="w-full p-3 border border-gray-300 rounded-lg" value="3" min="1" max="10">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">K-anonymat souhaité</label>
-                                <input type="range" id="k_value" class="w-full" min="2" max="20" value="5" oninput="updateKValue()">
-                                <div class="flex justify-between text-sm text-gray-500 mt-1">
-                                    <span>2</span>
-                                    <span id="k_display" class="font-semibold text-blue-600">5</span>
-                                    <span>20</span>
-                                </div>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Perte d'information acceptable (%)</label>
-                                <input type="range" id="info_loss" class="w-full" min="1" max="50" value="15" oninput="updateInfoLoss()">
-                                <div class="flex justify-between text-sm text-gray-500 mt-1">
-                                    <span>1%</span>
-                                    <span id="info_loss_display" class="font-semibold text-green-600">15%</span>
-                                    <span>50%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <button onclick="calculateAnonymization()" class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold no-print">
-                            <i class="fas fa-play mr-2"></i>Calculer
-                        </button>
-                    </div>
-
-                    <div>
-                        <h3 class="text-xl font-semibold mb-4 text-green-700">Résultats</h3>
-                        <div id="calculation-results" class="space-y-4">
-                            <div class="bg-gray-50 p-4 rounded-lg">
-                                <p class="text-sm text-gray-600">Cliquez sur "Calculer" pour voir les résultats</p>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-6">
-                            <canvas id="anonymization-chart" style="height: 300px;"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="section-divider mb-16"></div>
-
-        <!-- Exemples Pratiques -->
-        <section id="exemples" class="mb-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8 flex items-center">
-                <i class="fas fa-code text-blue-600 mr-3"></i>Exemples de Règles Métier
-            </h2>
-
-            <div class="space-y-8">
-                <!-- Exemple Code Postal -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4">
-                        <h3 class="text-xl font-semibold flex items-center">
-                            <i class="fas fa-map-marker-alt mr-3"></i>RG03 – Code Postal
-                        </h3>
-                    </div>
-                    <div class="p-6">
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <h4 class="font-semibold mb-3 text-gray-700">Configuration YAML</h4>
-                                <div class="syntax-highlight p-4 rounded text-sm">
-<pre>rule_id: RG03_POSTAL
-when: "row['code_postal'] and row['departement']"
-action:
-  plugin: LookupRef
-  field_in: code_postal
-  lookup_table: REF_GEO_CP
-  lookup_key: row['departement']
-exceptions: ["00000", "99999", "88888"]
-on_exception: keep_source
-on_lookup_fail: default
-default: "99999"
-priority: 10</pre>
-                                </div>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold mb-3 text-gray-700">Explication</h4>
-                                <div class="space-y-3 text-sm text-gray-600">
-                                    <p><strong>Objectif :</strong> Masquer les codes postaux tout en préservant la cohérence géographique</p>
-                                    <p><strong>Méthode :</strong> Utilise une table de référence pour mapper département → codes postaux valides</p>
-                                    <p><strong>Exceptions :</strong> Codes spéciaux (00000, 99999, 88888) restent inchangés</p>
-                                    <p><strong>Fallback :</strong> Si échec de lookup, utilise "99999" par défaut</p>
-                                </div>
-                                <div class="mt-4 p-3 bg-blue-50 rounded">
-                                    <p class="text-sm text-blue-800"><strong>Cas d'usage :</strong> Données médicales, enquêtes sociales, études démographiques</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Exemple Date Début Soin -->
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-4">
-                        <h3 class="text-xl font-semibold flex items-center">
-                            <i class="fas fa-calendar-alt mr-3"></i>RG28 – Date Début Soin
-                        </h3>
-                    </div>
-                    <div class="p-6">
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <h4 class="font-semibold mb-3 text-gray-700">Configuration YAML</h4>
-                                <div class="syntax-highlight p-4 rounded text-sm">
-<pre>rule_id: RG28_DDS
-when: "row['date_debut_soin']"
-action:
-  plugin: CalcFunction
-  field_in: date_debut_soin
-  function: rewrite_dds
-priority: 20</pre>
-                                </div>
-                                <h4 class="font-semibold mt-4 mb-3 text-gray-700">Fonction Python</h4>
-                                <div class="syntax-highlight p-4 rounded text-sm">
-<pre>def rewrite_dds(row):
-    dds = row['date_debut_soin']
-    if dds in {'0001-01-01','1600-01-01','9999-12-31'}:
-        return dds
-    if is_bank_holiday(dds) or dds.weekday() in (5,6):
-        return previous_weekday(dds, target=4)
-    if row.get('date_fin_soin'):
-        dur = (row['date_fin_soin'] - dds).days + 1
-        if dur <= 0:
-            return dds + timedelta(days=1)
-    return dds</pre>
-                                </div>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold mb-3 text-gray-700">Logique Métier</h4>
-                                <div class="space-y-3 text-sm text-gray-600">
-                                    <p><strong>1. Dates spéciales :</strong> Les dates système (0001-01-01, 1600-01-01, 9999-12-31) restent inchangées</p>
-                                    <p><strong>2. Week-ends et fériés :</strong> Décalées au vendredi précédent pour réalisme médical</p>
-                                    <p><strong>3. Cohérence temporelle :</strong> Vérifie que date_debut < date_fin</p>
-                                    <p><strong>4. Correction automatique :</strong> Si durée ≤ 0, ajuste la date de début</p>
-                                </div>
-                                <div class="mt-4 p-3 bg-green-50 rounded">
-                                    <p class="text-sm text-green-800"><strong>Avantage :</strong> Préserve la logique métier tout en anonymisant</p>
-                                </div>
-                                <div class="mt-3 p-3 bg-yellow-50 rounded">
-                                    <p class="text-sm text-yellow-800"><strong>Attention :</strong> Nécessite maintenance des fonctions custom</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="section-divider mb-16"></div>
-
-        <!-- Matrice Plugins / Cas d'usage -->
-        <section class="mb-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8 flex items-center">
-                <i class="fas fa-table text-blue-600 mr-3"></i>Matrice Plugins ⇄ Cas d'usage
-            </h2>
-
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Cas d'usage</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Plugin Recommandé</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Effort</th>
-                                <th class="px-6 py-4 text-left text-sm font-semibold text-gray-900">Exemple</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-6 py-4 font-medium text-gray-900">Département → CP</td>
-                                <td class="px-6 py-4"><span class="bg-pink-100 text-pink-800 px-2 py-1 rounded text-xs font-semibold">LookupRef</span></td>
-                                <td class="px-6 py-4">
-                                    <div class="flex items-center">
-                                        <i class="fas fa-star text-yellow-400"></i>
-                                        <i class="far fa-star text-gray-300"></i>
-                                        <i class="far fa-star text-gray-300"></i>
-                                        <span class="ml-2 text-sm text-gray-600">Facile</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 text-sm text-gray-600">75 → 75001, 75002...</td>
-                            </tr>
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-6 py-4 font-medium text-gray-900">Dates WE / fériés</td>
-                                <td class="px-6 py-4"><span class="bg-teal-100 text-teal-800 px-2 py-1 rounded text-xs font-semibold">CalcFunction</span></td>
-                                <td class="px-6 py-4">
-                                    <div class="flex items-center">
-                                        <i class="fas fa-star text-yellow-400"></i>
-                                        <i class="fas fa-star text-yellow-400"></i>
-                                        <i class="far fa-star text-gray-300"></i>
-                                        <span class="ml-2 text-sm text-gray-600">Moyen</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 text-sm text-gray-600">Samedi → Vendredi</td>
-                            </tr>
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-6 py-4 font-medium text-gray-900">NIR format conservé</td>
-                                <td class="px-6 py-4"><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-xs font-semibold">FormatPreserver-Regex</span></td>
-                                <td class="px-6 py-4">
-                                    <div class="flex items-center">
-                                        <i class="fas fa-star text-yellow-400"></i>
-                                        <i class="far fa-star text-gray-300"></i>
-                                        <i class="far fa-star text-gray-300"></i>
-                                        <span class="ml-2 text-sm text-gray-600">Facile</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 text-sm text-gray-600">1234567890123 → 1XX4X6789012X</td>
-                            </tr>
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-6 py-4 font-medium text-gray-900">IBAN chiffré</td>
-                                <td class="px-6 py-4"><span class="bg-indigo-100 text-indigo-800 px-2 py-1 rounded text-xs font-semibold">Crypto-AES256</span></td>
-                                <td class="px-6 py-4">
-                                    <div class="flex items-center">
-                                        <i class="fas fa-star text-yellow-400"></i>
-                                        <i class="far fa-star text-gray-300"></i>
-                                        <i class="far fa-star text-gray-300"></i>
-                                        <span class="ml-2 text-sm text-gray-600">Facile</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 text-sm text-gray-600">Chiffrement réversible</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <div class="section-divider mb-16"></div>
-
-        <!-- DevOps Checklist -->
-        <section id="devops" class="mb-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8 flex items-center">
-                <i class="fas fa-tasks text-blue-600 mr-3"></i>Checklist DevOps
-            </h2>
-
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-blue-700 flex items-center">
-                        <i class="fas fa-cog mr-2"></i>Configuration
-                    </h3>
-                    <div class="space-y-3">
-                        <label class="flex items-center">
-                            <input type="checkbox" class="mr-3 h-4 w-4 text-blue-600">
-                            <span class="text-sm">Charger référentiels : lookups/REF_GEO_CP.csv</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" class="mr-3 h-4 w-4 text-blue-600">
-                            <span class="text-sm">Charger calendrier fériés</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" class="mr-3 h-4 w-4 text-blue-600">
-                            <span class="text-sm">Renseigner exceptions & defaults dans YAML</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" class="mr-3 h-4 w-4 text-blue-600">
-                            <span class="text-sm">Implémenter fonctions métier dans plugins/custom_functions.py</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-green-700 flex items-center">
-                        <i class="fas fa-vial mr-2"></i>Tests & Validation
-                    </h3>
-                    <div class="space-y-3">
-                        <label class="flex items-center">
-                            <input type="checkbox" class="mr-3 h-4 w-4 text-green-600">
-                            <span class="text-sm">pytest red_team/ --rules RG03_POSTAL,RG28_DDS</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" class="mr-3 h-4 w-4 text-green-600">
-                            <span class="text-sm">Tests de non-réversibilité</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" class="mr-3 h-4 w-4 text-green-600">
-                            <span class="text-sm">Validation k-anonymat</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" class="mr-3 h-4 w-4 text-green-600">
-                            <span class="text-sm">Mesure perte d'information</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-purple-700 flex items-center">
-                        <i class="fas fa-code-branch mr-2"></i>Versioning
-                    </h3>
-                    <div class="space-y-3">
-                        <label class="flex items-center">
-                            <input type="checkbox" class="mr-3 h-4 w-4 text-purple-600">
-                            <span class="text-sm">Versionner DR_Masking_mp_reco.json</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" class="mr-3 h-4 w-4 text-purple-600">
-                            <span class="text-sm">Versionner policy.yaml</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" class="mr-3 h-4 w-4 text-purple-600">
-                            <span class="text-sm">Versionner plugins → Git + MR</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" class="mr-3 h-4 w-4 text-purple-600">
-                            <span class="text-sm">Tags de release avec hash</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-orange-700 flex items-center">
-                        <i class="fas fa-rocket mr-2"></i>Déploiement
-                    </h3>
-                    <div class="space-y-3">
-                        <label class="flex items-center">
-                            <input type="checkbox" class="mr-3 h-4 w-4 text-orange-600">
-                            <span class="text-sm">Configuration Vault/KMS</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" class="mr-3 h-4 w-4 text-orange-600">
-                            <span class="text-sm">Pipeline CI/CD mask_on_refresh</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" class="mr-3 h-4 w-4 text-orange-600">
-                            <span class="text-sm">Dashboard Kibana K-score</span>
-                        </label>
-                        <label class="flex items-center">
-                            <input type="checkbox" class="mr-3 h-4 w-4 text-orange-600">
-                            <span class="text-sm">Bot RegTech monitoring</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Exécution rapide -->
-            <div class="mt-8 bg-gray-900 text-green-400 rounded-lg p-6">
-                <h3 class="text-xl font-semibold mb-4 text-white flex items-center">
-                    <i class="fas fa-terminal mr-2"></i>Exécution Rapide
-                </h3>
-                <div class="space-y-2 font-mono text-sm">
-                    <div class="flex items-start">
-                        <span class="text-gray-500 mr-2">#</span>
-                        <span class="text-blue-400">1. Appel LLM</span>
-                    </div>
-                    <div class="pl-4">curl -X POST LLM_API -d @prompt.txt > ano3mp_reco.json</div>
-                    
-                    <div class="flex items-start mt-4">
-                        <span class="text-gray-500 mr-2">#</span>
-                        <span class="text-blue-400">2. Génération des configs</span>
-                    </div>
-                    <div class="pl-4">python generate_config.py ano3mp_reco.json</div>
-                    
-                    <div class="flex items-start mt-4">
-                        <span class="text-gray-500 mr-2">#</span>
-                        <span class="text-blue-400">3. Tests</span>
-                    </div>
-                    <div class="pl-4">pytest red_team/ --verbose</div>
-                    
-                    <div class="flex items-start mt-4">
-                        <span class="text-gray-500 mr-2">#</span>
-                        <span class="text-blue-400">4. Déploiement</span>
-                    </div>
-                    <div class="pl-4">git add . && git commit -m "DR Masking config" && git push</div>
-                </div>
-            </div>
-        </section>
     </div>
 
-    <!-- Footer -->
-    <footer class="gradient-bg text-white py-8 mt-16">
-        <div class="container mx-auto px-6 text-center">
-            <p class="text-lg font-semibold mb-2">DR Masking Framework v1</p>
-            <p class="opacity-75">Documentation interactive - Anonymisation de données conforme RGPD</p>
-            <div class="mt-4 flex justify-center space-x-6">
-                <div class="flex items-center">
-                    <i class="fas fa-check-circle mr-2"></i>
-                    <span class="text-sm">Sécurisé</span>
-                </div>
-                <div class="flex items-center">
-                    <i class="fas fa-cogs mr-2"></i>
-                    <span class="text-sm">Modulaire</span>
-                </div>
-                <div class="flex items-center">
-                    <i class="fas fa-rocket mr-2"></i>
-                    <span class="text-sm">Prêt à l'emploi</span>
-                </div>
-            </div>
-        </div>
-    </footer>
-
     <script>
-        // Navigation smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Générateur de prompt
-        function generatePrompt() {
-            const organisation = document.getElementById('organisation').value || 'Mon Organisation';
-            const finalite = document.getElementById('finalite').value || 'Anonymisation pour usage interne';
-            const contraintes = document.getElementById('contraintes').value || 'RGPD';
-            const volume = document.getElementById('volume').value || '100 000 lignes';
-            const kAnonymat = document.getElementById('k_anonymat').value;
-            const perteInfo = document.getElementById('perte_info').value;
-            const keyVault = document.getElementById('key_vault').value;
-            
-            const idFields = document.getElementById('id_fields').value || 'id, nom, email';
-            const qiFields = document.getElementById('qi_fields').value || 'age, code_postal';
-            const asFields = document.getElementById('as_fields').value || 'diagnostic';
-            const nsFields = document.getElementById('ns_fields').value || 'date_admission';
-
-            const prompt = `SYSTEM
-You are DR Masking-GPT, expert en anonymisation. Réponds UNIQUEMENT par un JSON valide et en français.
-
-USER
-Organisation      : ${organisation}
-Finalité          : ${finalite}
-Contraintes       : ${contraintes}
-Volume/format     : ${volume}
-Identifiants directs (ID) : ${idFields}
-Quasi-identifiants (QI)   : ${qiFields}
-Attributs sensibles (AS)  : ${asFields}
-Attributs non sensibles (NS) : ${nsFields}
-k_anonymat_min        : ${kAnonymat}
-perte_info_max_%      : ${perteInfo}
-attaques_à_éviter     : ["lien_tables", "homogénéité", "dissymétrie"]
-plugins_autorisés     : ["FormatPreserver-Regex", "Crypto-AES256", "Faker", "LookupRef", "CalcFunction"]
-key_vault             : "${keyVault}"
-
-FORMAT_SORTIE
-{
-  "macro": {"technique":"", "algorithm":"", "parameters":{}},
-  "micro": [{"field":"", "plugin":"", "config":{}}],
-  "policy": {"rules": [{"when":"", "action": {"mask":"", "plugin":""}, "priority":1}]},
-  "metrics_target": {"info_loss_max":${perteInfo}, "reid_risk_max":5},
-  "why_this_choice": ""
-}`;
-
-            document.getElementById('prompt-content').textContent = prompt;
-            document.getElementById('generated-prompt').classList.remove('hidden');
-        }
-
-        function copyPrompt() {
-            const promptContent = document.getElementById('prompt-content').textContent;
-            navigator.clipboard.writeText(promptContent).then(() => {
-                alert('Prompt copié dans le presse-papiers !');
-            });
-        }
-
-        // Calculateur K-anonymat
-        function updateKValue() {
-            document.getElementById('k_display').textContent = document.getElementById('k_value').value;
-        }
-
-        function updateInfoLoss() {
-            document.getElementById('info_loss_display').textContent = document.getElementById('info_loss').value + '%';
-        }
-
-        function calculateAnonymization() {
-            const totalRecords = parseInt(document.getElementById('total_records').value);
-            const quasiIdentifiers = parseInt(document.getElementById('quasi_identifiers').value);
-            const kValue = parseInt(document.getElementById('k_value').value);
-            const infoLoss = parseInt(document.getElementById('info_loss').value);
-
-            // Calculs simplifiés pour démonstration
-            const groupsExpected = Math.floor(totalRecords / kValue);
-            const recordsAfterAnonymization = groupsExpected * kValue;
-            const recordsLost = totalRecords - recordsAfterAnonymization;
-            const actualInfoLoss = ((recordsLost / totalRecords) * 100).toFixed(1);
-            const reidRisk = Math.max(1, Math.floor(100 / kValue));
-
-            const results = `
-                <div class="space-y-4">
-                    <div class="bg-blue-50 p-4 rounded-lg">
-                        <div class="flex justify-between">
-                            <span class="font-medium text-gray-700">Groupes k-anonymes attendus</span>
-                            <span class="font-bold text-blue-600">${groupsExpected.toLocaleString()}</span>
-                        </div>
-                    </div>
-                    <div class="bg-green-50 p-4 rounded-lg">
-                        <div class="flex justify-between">
-                            <span class="font-medium text-gray-700">Enregistrements conservés</span>
-                            <span class="font-bold text-green-600">${recordsAfterAnonymization.toLocaleString()}</span>
-                        </div>
-                    </div>
-                    <div class="bg-orange-50 p-4 rounded-lg">
-                        <div class="flex justify-between">
-                            <span class="font-medium text-gray-700">Perte d'information réelle</span>
-                            <span class="font-bold text-orange-600">${actualInfoLoss}%</span>
-                        </div>
-                    </div>
-                    <div class="bg-red-50 p-4 rounded-lg">
-                        <div class="flex justify-between">
-                            <span class="font-medium text-gray-700">Risque de ré-identification</span>
-                            <span class="font-bold text-red-600">${reidRisk}%</span>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 p-4 rounded-lg">
-                        <div class="text-center">
-                            <span class="text-sm font-medium text-gray-600">
-                                ${actualInfoLoss <= infoLoss ? '✅ Conforme aux exigences' : '⚠️ Dépasse la perte acceptable'}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            document.getElementById('calculation-results').innerHTML = results;
-
-            // Graphique
-            const ctx = document.getElementById('anonymization-chart').getContext('2d');
-            new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Données conservées', 'Données supprimées'],
-                    datasets: [{
-                        data: [recordsAfterAnonymization, recordsLost],
-                        backgroundColor: ['#10B981', '#EF4444'],
-                        borderWidth: 2,
-                        borderColor: '#ffffff'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }
-            });
-        }
-
-        // Plugin modal
-        function showPluginDetails(pluginName) {
-            const pluginDetails = {
-                'LookupRef': {
-                    title: 'Plugin LookupRef',
-                    content: `
-                        <p class="mb-4"><strong>Fonction :</strong> Remplace les valeurs par consultation d'une table de référence externe.</p>
-                        <h4 class="font-semibold mb-2">Configuration YAML :</h4>
-                        <pre class="bg-gray-100 p-3 rounded text-sm mb-4">plugin: LookupRef
-field_in: code_postal
-lookup_table: REF_GEO_CP
-lookup_key: row['departement']
-on_lookup_fail: default
-default: "99999"</pre>
-                        <h4 class="font-semibold mb-2">Cas d'usage :</h4>
-                        <ul class="list-disc pl-5 space-y-1 text-sm">
-                            <li>Codes postaux cohérents par département</li>
-                            <li>Noms de famille par région</li>
-                            <li>Codes métier standardisés</li>
-                        </ul>
-                    `
-                },
-                'ExceptionList': {
-                    title: 'Concept ExceptionList',
-                    content: `
-                        <p class="mb-4"><strong>Fonction :</strong> Définit des valeurs spéciales à traiter différemment ou laisser intactes.</p>
-                        <h4 class="font-semibold mb-2">Configuration YAML :</h4>
-                        <pre class="bg-gray-100 p-3 rounded text-sm mb-4">exceptions: ["00000", "99999", "88888", "NULL"]
-on_exception: keep_source</pre>
-                        <h4 class="font-semibold mb-2">Stratégies :</h4>
-                        <ul class="list-disc pl-5 space-y-1 text-sm">
-                            <li><code>keep_source</code> : Conserver la valeur originale</li>
-                            <li><code>mask_anyway</code> : Appliquer le masquage malgré tout</li>
-                            <li><code>custom_rule</code> : Règle spécifique pour cette exception</li>
-                        </ul>
-                    `
-                },
-                'DefaultValue': {
-                    title: 'Concept DefaultValue',
-                    content: `
-                        <p class="mb-4"><strong>Fonction :</strong> Valeur de repli utilisée quand le processus principal échoue.</p>
-                        <h4 class="font-semibold mb-2">Configuration YAML :</h4>
-                        <pre class="bg-gray-100 p-3 rounded text-sm mb-4">default: "99999"
-on_lookup_fail: default
-on_error: default</pre>
-                        <h4 class="font-semibold mb-2">Utilisation :</h4>
-                        <ul class="list-disc pl-5 space-y-1 text-sm">
-                            <li>Échec de lookup dans table de référence</li>
-                            <li>Erreur de calcul dans CalcFunction</li>
-                            <li>Valeur NULL ou invalide en entrée</li>
-                        </ul>
-                    `
-                },
-                'CalcFunction': {
-                    title: 'Plugin CalcFunction',
-                    content: `
-                        <p class="mb-4"><strong>Fonction :</strong> Exécute une fonction Python personnalisée pour implémenter une logique métier complexe.</p>
-                        <h4 class="font-semibold mb-2">Configuration YAML :</h4>
-                        <pre class="bg-gray-100 p-3 rounded text-sm mb-4">plugin: CalcFunction
-field_in: date_debut_soin
-function: rewrite_dds
-module: plugins.custom_functions</pre>
-                        <h4 class="font-semibold mb-2">Exemple de fonction :</h4>
-                        <pre class="bg-gray-100 p-3 rounded text-sm mb-4">def rewrite_dds(row):
-    date = row['date_debut_soin']
-    if is_weekend(date):
-        return previous_weekday(date)
-    return date</pre>
-                        <p class="text-sm text-yellow-700 bg-yellow-50 p-2 rounded">⚠️ Nécessite développement et maintenance du code Python</p>
-                    `
-                },
-                'Crypto': {
-                    title: 'Plugin Crypto-AES256',
-                    content: `
-                        <p class="mb-4"><strong>Fonction :</strong> Chiffrement sécurisé des données avec clés gérées par Vault/KMS.</p>
-                        <h4 class="font-semibold mb-2">Configuration YAML :</h4>
-                        <pre class="bg-gray-100 p-3 rounded text-sm mb-4">plugin: Crypto-AES256
-vault: "HashiCorp"
-key_path: "prod/hospital/patient_id"
-algorithm: "AES-256-GCM"</pre>
-                        <h4 class="font-semibold mb-2">Avantages :</h4>
-                        <ul class="list-disc pl-5 space-y-1 text-sm">
-                            <li>Chiffrement réversible avec autorisation</li>
-                            <li>Gestion centralisée des clés</li>
-                            <li>Audit trail complet</li>
-                            <li>Rotation automatique des clés</li>
-                        </ul>
-                        <p class="text-sm text-green-700 bg-green-50 p-2 rounded mt-3">✅ Garantie : Aucune clé en dur dans le code</p>
-                    `
-                },
-                'Faker': {
-                    title: 'Plugin Faker-Provider',
-                    content: `
-                        <p class="mb-4"><strong>Fonction :</strong> Génère des données factices réalistes selon des patterns localisés.</p>
-                        <h4 class="font-semibold mb-2">Configuration YAML :</h4>
-                        <pre class="bg-gray-100 p-3 rounded text-sm mb-4">plugin: Faker
-category: "person.name"
-locale: "fr_FR"
-seed: 12345</pre>
-                        <h4 class="font-semibold mb-2">Catégories disponibles :</h4>
-                        <ul class="list-disc pl-5 space-y-1 text-sm">
-                            <li><code>person.name</code> : Noms et prénoms</li>
-                            <li><code>internet.email</code> : Adresses email</li>
-                            <li><code>address.postcode</code> : Codes postaux</li>
-                            <li><code>phone_number</code> : Numéros de téléphone</li>
-                            <li><code>company.name</code> : Noms d'entreprises</li>
-                        </ul>
-                        <p class="text-sm text-blue-700 bg-blue-50 p-2 rounded mt-3">💡 Le seed garantit la reproductibilité</p>
-                    `
-                }
-            };
-
-            const plugin = pluginDetails[pluginName];
-            if (plugin) {
-                document.getElementById('plugin-modal-title').textContent = plugin.title;
-                document.getElementById('plugin-modal-content').innerHTML = plugin.content;
-                document.getElementById('plugin-modal').classList.remove('hidden');
-            }
-        }
-
-        function closePluginModal() {
-            document.getElementById('plugin-modal').classList.add('hidden');
-        }
-
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set default values for calculator
-            updateKValue();
-            updateInfoLoss();
-            
-            // Close modal when clicking outside
-            document.getElementById('plugin-modal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closePluginModal();
-                }
-            });
-        });
+        // Définir la date actuelle
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('fr-FR');
     </script>
 </body>
 </html>
