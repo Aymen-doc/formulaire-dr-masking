@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire DR Masking - Cadrage Technique</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        @media print {
+            body { margin: 0; }
+            .no-print { display: none; }
+        }
+        .document-style {
+            max-width: 8.5in;
+            margin: 0 auto;
+            background: white;
+            font-family: 'Times New Roman', serif;
+            line-height: 1.6;
+        }
+        input[type="text"], textarea, select {
+            border: 1px solid #ccc;
+            padding: 8px;
+            width: 100%;
+            font-size: 12px;
+        }
+        .section-header {
+            background-color: #2563eb;
+            color: white;
+            padding: 10px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .question-row {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .question-number {
+            width: 40px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        .question-text {
+            flex: 1;
+            padding-right: 15px;
+        }
+        .answer-field {
+            width: 300px;
+        }
+        .required {
+            color: #dc2626;
+        }
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4">
+    <div class="document-style bg-white shadow-lg p-8">
+        
+        <!-- En-tête -->
+        <div class="text-center mb-8 border-b-2 border-blue-600 pb-6">
+            <h1 class="text-3xl font-bold text-blue-800 mb-2">
+                <i class="fas fa-shield-alt mr-3"></i>
+                QUESTIONNAIRE DR MASKING
+            </h1>
+            <h2 class="text-xl text-gray-600 mb-4">Cadrage Technique - Anonymisation de Données</h2>
+            <div class="text-sm text-gray-500">
+                <p><strong>Version:</strong> 1.0 | <strong>Date:</strong> <span id="current-date"></span></p>
+                <p><strong>Projet:</strong> Implémentation Framework DR Masking</p>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="mb-8 bg-blue-50 p-6 rounded-lg">
+            <h3 class="text-lg font-bold text-blue-800 mb-4">
+                <i class="fas fa-info-circle mr-2"></i>Instructions de Remplissage
+            </h3>
+            <div class="text-sm space-y-2">
+                <p><strong>Objectif :</strong> Recueillir les informations nécessaires pour paramétrer optimalement votre solution d'anonymisation DR Masking</p>
+                <ul class="list-disc list-inside space-y-1 mt-4">
+                    <li>Remplissez toutes les questions marquées <span class="required">*</span> (obligatoires)</li>
+                    <li>Les questions optionnelles peuvent améliorer la précision du paramétrage</li>
+                    <li>Soyez aussi précis que possible dans vos réponses</li>
+                    <li>N'hésitez pas à contacter l'équipe projet pour toute clarification</li>
+                </ul>
+                <p class="mt-4"><strong>Temps estimé :</strong> 15-20 minutes</p>
+            </div>
+        </div>
+
+        <!-- Section A: Contexte Organisationnel -->
+        <div class="section-header">
+            <i class="fas fa-building mr-2"></i>
+            SECTION A - CONTEXTE ORGANISATIONNEL
+        </div>
+        
+        <div class="question-row">
+            <div class="question-number">A1<span class="required">*</span></div>
+            <div class="question-text">Secteur d'activité principal</div>
+            <div class="answer-field">
+                <select name="secteur">
+                    <option value="">Sélectionnez...</option>
+                    <option value="sante">Santé</option>
+                    <option value="finance">Finance</option>
+                    <option value="public">Secteur Public</option>
+                    <option value="education">Éducation</option>
+                    <option value="telecom">Télécommunications</option>
+                    <option value="autre">Autre</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">A2<span class="required">*</span></div>
+            <div class="question-text">Finalité principale de l'anonymisation</div>
+            <div class="answer-field">
+                <select name="finalite">
+                    <option value="">Sélectionnez...</option>
+                    <option value="analytics">Analytics / Business Intelligence</option>
+                    <option value="ml">Machine Learning / IA</option>
+                    <option value="reporting">Reporting interne</option>
+                    <option value="partage">Partage externe / partenaires</option>
+                    <option value="test">Environnements de test</option>
+                    <option value="recherche">Recherche et développement</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">A3<span class="required">*</span></div>
+            <div class="question-text">Contraintes réglementaires applicables</div>
+            <div class="answer-field">
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="rgpd" name="reglementaire[]" value="rgpd">
+                        <label for="rgpd">RGPD</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="hds" name="reglementaire[]" value="hds">
+                        <label for="hds">HDS</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="cnil" name="reglementaire[]" value="cnil">
+                        <label for="cnil">CNIL</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="sectorielles" name="reglementaire[]" value="sectorielles">
+                        <label for="sectorielles">Sectorielles</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">A4<span class="required">*</span></div>
+            <div class="question-text">Environnement technique</div>
+            <div class="answer-field">
+                <select name="environnement">
+                    <option value="">Sélectionnez...</option>
+                    <option value="onpremise">On-premise</option>
+                    <option value="cloud">Cloud public</option>
+                    <option value="hybride">Hybride</option>
+                    <option value="private-cloud">Cloud privé</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Section B: Caractérisation des Données -->
+        <div class="section-header">
+            <i class="fas fa-database mr-2"></i>
+            SECTION B - CARACTÉRISATION DES DONNÉES
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">B5<span class="required">*</span></div>
+            <div class="question-text">Volume approximatif des données</div>
+            <div class="answer-field">
+                <select name="volume">
+                    <option value="">Sélectionnez...</option>
+                    <option value="<100k">< 100K lignes</option>
+                    <option value="100k-1m">100K - 1M lignes</option>
+                    <option value="1m-10m">1M - 10M lignes</option>
+                    <option value=">10m">> 10M lignes</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">B6<span class="required">*</span></div>
+            <div class="question-text">Fréquence de traitement</div>
+            <div class="answer-field">
+                <select name="frequence">
+                    <option value="">Sélectionnez...</option>
+                    <option value="ponctuel">Ponctuel</option>
+                    <option value="mensuel">Mensuel</option>
+                    <option value="hebdomadaire">Hebdomadaire</option>
+                    <option value="quotidien">Quotidien</option>
+                    <option value="temps-reel">Temps réel</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">B7<span class="required">*</span></div>
+            <div class="question-text">Types d'identifiants présents dans vos données</div>
+            <div class="answer-field">
+                <textarea name="identifiants" rows="4" placeholder="Exemples: NIR, emails, noms/prénoms, adresses, téléphones, codes postaux, dates de naissance, numéros de comptes, etc."></textarea>
+            </div>
+        </div>
+
+        <!-- Section C: Exigences de Qualité -->
+        <div class="section-header">
+            <i class="fas fa-chart-line mr-2"></i>
+            SECTION C - EXIGENCES DE QUALITÉ
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">C8<span class="required">*</span></div>
+            <div class="question-text">Perte d'information acceptable (%)</div>
+            <div class="answer-field">
+                <select name="perte-info">
+                    <option value="">Sélectionnez...</option>
+                    <option value="<10">< 10%</option>
+                    <option value="10-15">10% - 15%</option>
+                    <option value="15-20">15% - 20%</option>
+                    <option value=">20">> 20%</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">C9<span class="required">*</span></div>
+            <div class="question-text">Risque de réidentification toléré (%)</div>
+            <div class="answer-field">
+                <select name="risque-reid">
+                    <option value="">Sélectionnez...</option>
+                    <option value="<1">< 1%</option>
+                    <option value="1-3">1% - 3%</option>
+                    <option value="3-5">3% - 5%</option>
+                    <option value=">5">> 5%</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">C10</div>
+            <div class="question-text">Contraintes de format à préserver</div>
+            <div class="answer-field">
+                <textarea name="contraintes-format" rows="3" placeholder="Exemples: Format NIR, format IBAN, structure codes postaux, etc."></textarea>
+            </div>
+        </div>
+
+        <!-- Section D: Infrastructure et Sécurité -->
+        <div class="section-header">
+            <i class="fas fa-shield-alt mr-2"></i>
+            SECTION D - INFRASTRUCTURE ET SÉCURITÉ
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">D11<span class="required">*</span></div>
+            <div class="question-text">Gestionnaire de clés disponible</div>
+            <div class="answer-field">
+                <select name="gestionnaire-cles">
+                    <option value="">Sélectionnez...</option>
+                    <option value="hashicorp-vault">HashiCorp Vault</option>
+                    <option value="azure-keyvault">Azure Key Vault</option>
+                    <option value="aws-kms">AWS KMS</option>
+                    <option value="google-kms">Google Cloud KMS</option>
+                    <option value="autre">Autre</option>
+                    <option value="aucun">Aucun</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">D12</div>
+            <div class="question-text">Environnement d'exécution préféré</div>
+            <div class="answer-field">
+                <select name="execution">
+                    <option value="">Sélectionnez...</option>
+                    <option value="docker">Docker</option>
+                    <option value="kubernetes">Kubernetes</option>
+                    <option value="vm">Machines virtuelles</option>
+                    <option value="serverless">Serverless</option>
+                    <option value="bare-metal">Serveurs physiques</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">D13</div>
+            <div class="question-text">Plateforme CI/CD existante</div>
+            <div class="answer-field">
+                <select name="cicd">
+                    <option value="">Sélectionnez...</option>
+                    <option value="jenkins">Jenkins</option>
+                    <option value="gitlab">GitLab CI</option>
+                    <option value="azure-devops">Azure DevOps</option>
+                    <option value="github-actions">GitHub Actions</option>
+                    <option value="autre">Autre</option>
+                    <option value="aucun">Aucune</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Section E: Cas d'Usage Spécifiques -->
+        <div class="section-header">
+            <i class="fas fa-cogs mr-2"></i>
+            SECTION E - CAS D'USAGE SPÉCIFIQUES
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">E14</div>
+            <div class="question-text">Règles métier particulières</div>
+            <div class="answer-field">
+                <textarea name="regles-metier" rows="4" placeholder="Exemples: Les mineurs doivent avoir un masquage renforcé, certains diagnostics nécessitent un traitement spécial, etc."></textarea>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">E15</div>
+            <div class="question-text">Valeurs à ne jamais masquer</div>
+            <div class="answer-field">
+                <textarea name="valeurs-preservees" rows="4" placeholder="Exemples: Codes de référence système, identifiants techniques, valeurs nulles spécifiques, etc."></textarea>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">E16</div>
+            <div class="question-text">Besoins de traçabilité spécifiques</div>
+            <div class="answer-field">
+                <textarea name="tracabilite" rows="4" placeholder="Exemples: Audit trail complet, réversibilité partielle, logging détaillé, etc."></textarea>
+            </div>
+        </div>
+
+        <!-- Section F: Contraintes Opérationnelles -->
+        <div class="section-header">
+            <i class="fas fa-calendar-alt mr-2"></i>
+            SECTION F - CONTRAINTES OPÉRATIONNELLES
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">F17<span class="required">*</span></div>
+            <div class="question-text">Timeline du projet</div>
+            <div class="answer-field">
+                <select name="timeline">
+                    <option value="">Sélectionnez...</option>
+                    <option value="<1mois">< 1 mois</option>
+                    <option value="1-3mois">1 - 3 mois</option>
+                    <option value="3-6mois">3 - 6 mois</option>
+                    <option value=">6mois">> 6 mois</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">F18<span class="required">*</span></div>
+            <div class="question-text">Équipes impliquées dans le projet</div>
+            <div class="answer-field">
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="it" name="equipes[]" value="it">
+                        <label for="it">IT / DSI</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="dpo" name="equipes[]" value="dpo">
+                        <label for="dpo">DPO / Juridique</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="metier" name="equipes[]" value="metier">
+                        <label for="metier">Métier</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="securite" name="equipes[]" value="securite">
+                        <label for="securite">Sécurité / RSSI</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-number">F19</div>
+            <div class="question-text">Budget disponible</div>
+            <div class="answer-field">
+                <select name="budget">
+                    <option value="">Sélectionnez...</option>
+                    <option value="limite">Limité</option>
+                    <option value="moyen">Moyen</option>
+                    <option value="confortable">Confortable</option>
+                    <option value="non-defini">Non défini</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Glossaire -->
+        <div class="mt-8 bg-gray-50 p-6 rounded-lg">
+            <h3 class="text-lg font-bold text-gray-800 mb-4">
+                <i class="fas fa-book mr-2"></i>Glossaire
+            </h3>
+            <div class="text-sm space-y-3">
+                <div><strong>k-anonymat :</strong> Technique garantissant qu'au moins k individus partagent les mêmes quasi-identifiants</div>
+                <div><strong>Differential Privacy (ε-DP) :</strong> Méthode ajoutant du bruit statistique pour protéger la vie privée</div>
+                <div><strong>Re-identification :</strong> Processus permettant d'identifier une personne à partir de données anonymisées</div>
+                <div><strong>Quasi-identifiants :</strong> Combinaison d'attributs pouvant permettre l'identification indirecte</div>
+                <div><strong>HDS :</strong> Hébergeur de Données de Santé (certification française)</div>
+                <div><strong>Vault/KMS :</strong> Systèmes de gestion sécurisée des clés de chiffrement</div>
+            </div>
+        </div>
+
+        <!-- Informations de contact -->
+        <div class="mt-8 border-t-2 border-blue-600 pt-6">
+            <h3 class="text-lg font-bold text-blue-800 mb-4">
+                <i class="fas fa-phone mr-2"></i>Contact Projet
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div>
+                    <strong>Chef de Projet :</strong><br>
+                    Nom : ________________________<br>
+                    Email : _______________________<br>
+                    Téléphone : ___________________
+                </div>
+                <div>
+                    <strong>Expert Technique :</strong><br>
+                    Nom : ________________________<br>
+                    Email : _______________________<br>
+                    Téléphone : ___________________
+                </div>
+            </div>
+            <div class="mt-4 p-4 bg-yellow-50 rounded border-l-4 border-yellow-400">
+                <p class="text-sm text-yellow-800">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    <strong>Important :</strong> Merci de retourner ce questionnaire complété dans un délai de 7 jours ouvrés. 
+                    Une réunion de validation sera programmée suite à la réception de vos réponses.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Définir la date actuelle
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('fr-FR');
+    </script>
+</body>
+</html>
